@@ -1,5 +1,11 @@
 package Model;
 
-public class MusicComosutioWithWords extends MusicalComposition {
+public class MusicalCompositionWithWords extends MusicalComposition {
     String language;
+
+
+    public MusicalCompositionWithWords(String name, String author, String style, float duration, String language) {
+        super(name, author, style, duration);
+        this.language = language;
+    }
 }
