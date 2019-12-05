@@ -1,7 +1,7 @@
-package View;
+package com.company.View;
 
-import Model.Disk;
-import Model.MusicalComposition;
+import com.company.Model.Disk;
+import com.company.Model.MusicalComposition;
 
 import java.util.List;
 import java.util.Locale;

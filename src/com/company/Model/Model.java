@@ -1,4 +1,4 @@
-package Model;
+package com.company.Model;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,7 +20,7 @@ public class Model {
                 new MusicalCompositionWithWords("Song1", "Singer1", "рок", 3f, "Ukrainian"),
                 new MusicalCompositionWithWords("Song2", "Singer2", "хіп-хоп", 2.45f, "Russian"),
                 new MusicalCompositionWithWords("Song3", "Singer3", "поп", 3f, "Ukrainian"),
-                new MusicalCompositionWithWords("Song4", "Singer4", "класична музика", 2.45f, "Russian")
+                new MusicalCompositionWithoutWords(Arrays.asList("drums", "piano"), 4)
         ));
         disks = new ArrayList<>(Arrays.asList(
                 new Disk("disk1", 1),

@@ -1,4 +1,4 @@
-package View;
+package com.company.View;
 
 public interface TextConstants {
     public static final String INVITATION = "input.invitation.data";
