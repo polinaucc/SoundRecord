@@ -31,28 +31,12 @@ public class Disk {
         return name;
     }
 
-    public void setTracksDuration() {
-        int duration = 0;
-        for (MusicalComposition composition : trackList) {
-            duration += composition.getDuration();
-        }
-        this.duration = duration;
-    }
-
-    public float getDuration() {
-        return duration;
-    }
-
     public List<MusicalComposition> getTrackList() {
         return trackList;
     }
 
     public void sort(SortByStyle comparator) {
         Collections.sort(trackList, comparator);
-    }
-
-    public int getFreePlaceForTrack() {
-        return freePlaceForTrack;
     }
 
     public int getAmountOfTracks() {

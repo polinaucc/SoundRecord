@@ -1,9 +1,8 @@
 package Controller;
 
 import Model.*;
-import View.View;
+import View.*;
 
-import java.util.Optional;
 import java.util.Scanner;
 
 public class Controller {
@@ -17,24 +16,24 @@ public class Controller {
 
     public void process() {
         Scanner scanner = new Scanner(System.in);
-        this.view.printMessage(View.INVITATION);
+        this.view.printMessage(TextConstants.INVITATION);
         String diskName = inputDiskWithSacnner(scanner);
         model.setCurrentDisk(diskName);
-        this.view.printMessage(View.INVITATION_FOR_RECORD, String.valueOf(model.getCurrentDisk().getAmountOfTracks()));
+        this.view.printMessage(TextConstants.INVITATION_FOR_RECORD, String.valueOf(model.getCurrentDisk().getAmountOfTracks()));
         while (true) {
             String[] songNames = inputSongWithSacnner(scanner);
             try {
                 model.recordCompositionOnDisk(songNames);
-                this.view.printMessage(View.SUCCESSFUL_RECORD);
+                this.view.printMessage(TextConstants.SUCCESSFUL_RECORD);
                 break;
             } catch (IllegalArgumentException exc) {
-                this.view.printMessage(View.NOT_SUCCESSFUL_RECORD);
+                this.view.printMessage(TextConstants.NOT_SUCCESSFUL_RECORD);
             }
         }
-        view.printMessage(View.PLAY_DISK);
+        view.printMessage(TextConstants.PLAY_DISK);
         model.getPlayer().setDisk(model.getCurrentDisk());
         view.printList(model.getCurrentDisk().toString());
-        view.printMessage(View.PLAYER_FUNCTIONS);
+        view.printMessage(TextConstants.PLAYER_FUNCTIONS);
         while(true){
         int status = inputStatusWithScanner(scanner);
         switch (status) {
@@ -49,7 +48,7 @@ public class Controller {
             case 3: {
                 float min = 0f, max = 0f;
                 while (min >= max) {
-                    view.printMessage(View.DIFFERENCE_BOUND);
+                    view.printMessage(TextConstants.DIFFERENCE_BOUND);
                     min = inputDiapasonWithScanner(scanner);
                     max = inputDiapasonWithScanner(scanner);
                 }
@@ -83,11 +82,11 @@ public class Controller {
     private String inputDiskWithSacnner(Scanner scanner) {
         String res = "";
         while (true) {
-            view.printMessage(View.ENTER, View.DISK);
+            view.printMessageWithLoc(TextConstants.ENTER, TextConstants.DISK);
             view.printDiskNames(model.getDisks());
             res = scanner.next();
             if (!isExist(res)) {
-                this.view.printMessage(View.INCORRECT_INPUT, res);
+                this.view.printMessage(TextConstants.INCORRECT_INPUT, res);
                 continue;
             }
             break;
@@ -99,14 +98,14 @@ public class Controller {
         String res = "";
         String[] songs;
         while (true) {
-            view.printMessageWithLoc(View.ENTER, View.SONG);
-            view.printMessage(View.SONG_LIST);
+            view.printMessageWithLoc(TextConstants.ENTER, TextConstants.SONG);
+            view.printMessage(TextConstants.SONG_LIST);
             view.printCompositionNames(model.getCompositions());
             res = scanner.next();
             System.out.println(res);
             songs = res.split(",");
             if (!isNormNames(songs)) {
-                this.view.printMessage(View.INCORRECT_INPUT);
+                this.view.printMessage(TextConstants.INCORRECT_INPUT);
                 continue;
             }
             break;
@@ -125,11 +124,11 @@ public class Controller {
         int status = 0;
         while (true) {
             while (!scanner.hasNextInt()) {
-                view.printMessage(View.WRONG_DATA);
+                view.printMessage(TextConstants.WRONG_DATA);
                 scanner.next();
             }
             if ((status = scanner.nextInt()) < 0 || status > 4) {
-                view.printMessage(View.WRONG_DATA);
+                view.printMessage(TextConstants.WRONG_DATA);
                 continue;
             }
             break;
@@ -139,9 +138,9 @@ public class Controller {
     }
 
     private float inputDiapasonWithScanner(Scanner scanner) {
-        view.printMessage(View.ENTER_BOUND);
+        view.printMessage(TextConstants.ENTER_BOUND);
         while (!scanner.hasNextFloat()) {
-            view.printMessage(View.WRONG_DATA);
+            view.printMessage(TextConstants.WRONG_DATA);
             scanner.next();
         }
         return scanner.nextFloat();

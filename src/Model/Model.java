@@ -29,10 +29,6 @@ public class Model {
         ));
     }
 
-    public void addDisk(Disk disk) {
-        this.disks.add(disk);
-    }
-
     public List<Disk> getDisks() {
         return disks;
     }

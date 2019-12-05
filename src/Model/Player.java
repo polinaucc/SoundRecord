@@ -7,13 +7,6 @@ public class Player {
     Disk disk;
 
     public Player() {}
-    public Player(Disk disk) {
-        this.disk = disk;
-    }
-
-    public String getTrackList(){
-        return disk.toString();
-    }
 
     public void sortByStyle(){
         disk.sort(new SortByStyle());

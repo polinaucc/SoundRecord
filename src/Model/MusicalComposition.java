@@ -29,23 +29,14 @@ public abstract class MusicalComposition {
         return author;
     }
 
-    public void setAuthor(String country) {
-        this.author = country;
-    }
 
     public Style getStyle() {
         return style;
     }
 
-    public void setStyle(Style style) {
-        this.style = style;
-    }
 
     public float getDuration() {
         return duration;
     }
 
-    public void setDuration(float duration) {
-        this.duration = duration;
-    }
 }
