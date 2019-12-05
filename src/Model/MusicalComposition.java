@@ -1,17 +1,19 @@
 package Model;
 
-public class MusicalComposition {
+public abstract class MusicalComposition {
 
-    private String name, author, style;
-    private float duration;
+    protected String name, author;
+    protected Style style;
+    protected float duration;
 
-    public MusicalComposition(){}
+    public MusicalComposition() { }
 
-    public MusicalComposition(String name, String author, String style, float duration) {
+    public MusicalComposition(String name, String author, String styleName, float duration) {
         this.name = name;
         this.author = author;
-        this.style = style;
-        if (duration<0) throw new IllegalArgumentException("The duration must be more than 0");
+        this.style = Style.getValueByTitle(styleName);
+        if(this.style==null) throw new IllegalArgumentException("Incorrect style name");
+        if (duration < 0) throw new IllegalArgumentException("The duration must be more than 0");
         this.duration = duration;
     }
 
@@ -31,11 +33,11 @@ public class MusicalComposition {
         this.author = country;
     }
 
-    public String getStyle() {
+    public Style getStyle() {
         return style;
     }
 
-    public void setStyle(String style) {
+    public void setStyle(Style style) {
         this.style = style;
     }
 

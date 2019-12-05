@@ -4,27 +4,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
-    Album album ;
+    Disk disk;
 
-    public Player(Album album) {
-        this.album = album;
+    public Player() {}
+    public Player(Disk disk) {
+        this.disk = disk;
     }
 
     public String getTrackList(){
-        return album.toString();
+        return disk.toString();
     }
 
     public void sortByStyle(){
-        album.sort(new SortByStyle());
+        disk.sort(new SortByStyle());
     }
 
-    public Album getAlbum() {
-        return album;
+    public Disk getDisk() {
+        return disk;
     }
+    public void setDisk(Disk disk) { this.disk = disk; }
 
     public List<MusicalComposition> findInDiapason(float min, float max){
         List<MusicalComposition> foundByDuration = new ArrayList<>();
-        for(MusicalComposition composition: album.getAlbum()){
+        for(MusicalComposition composition: disk.getDisk()){
             if(composition.getDuration()>min && composition.getDuration()<max)
                  foundByDuration.add(composition);
         }
