@@ -1,12 +1,13 @@
 package com.company;
 
 import Controller.Controller;
+import Model.Model;
+import View.View;
 
 public class Main {
 
     public static void main(String[] args) {
-	// write your code here
-        Controller controller = new Controller();
+        Controller controller = new Controller(new View(), new Model());
         controller.process();
     }
 }

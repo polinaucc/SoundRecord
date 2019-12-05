@@ -6,25 +6,24 @@ import java.util.Comparator;
 import java.util.List;
 
 public class Disk {
-    private List<MusicalComposition> trackList = new ArrayList<>();
+    private List<MusicalComposition> trackList;
     private String name;
     private float duration;
     private int amountOfTracks, freePlaceForTrack;
 
-    public Disk (String name, int amountOfTracks, float duration) {
+    public Disk(String name, int amountOfTracks) {
         this.amountOfTracks = amountOfTracks;
         this.freePlaceForTrack = amountOfTracks;
         this.name = name;
-        this.duration = duration;
+        this.trackList = new ArrayList<>();
     }
 
-    public void addComposition(MusicalComposition... composition){
-        for(MusicalComposition c: composition) {
-            if (this.duration >  this.getTracksDuration() + c.getDuration()) {
-                trackList.add(c);
-            } else {
-                throw new IllegalArgumentException("Not enough disk space!!");
-            }
+    public void addComposition(MusicalComposition composition) {
+        if (freePlaceForTrack!=0) {
+            trackList.add(composition);
+            freePlaceForTrack--;
+        } else {
+            throw new IllegalArgumentException("Not enough disk space!!");
         }
     }
 
@@ -32,11 +31,15 @@ public class Disk {
         return name;
     }
 
-    public float getTracksDuration() {
+    public void setTracksDuration() {
         int duration = 0;
         for (MusicalComposition composition : trackList) {
             duration += composition.getDuration();
         }
+        this.duration = duration;
+    }
+
+    public float getDuration() {
         return duration;
     }
 
@@ -44,7 +47,7 @@ public class Disk {
         return trackList;
     }
 
-    public void sort(SortByStyle comparator){
+    public void sort(SortByStyle comparator) {
         Collections.sort(trackList, comparator);
     }
 
@@ -52,8 +55,12 @@ public class Disk {
         return freePlaceForTrack;
     }
 
+    public int getAmountOfTracks() {
+        return amountOfTracks;
+    }
+
     @Override
-    public String  toString() {
+    public String toString() {
         StringBuilder tracks = new StringBuilder("Disk: \n");
         for (MusicalComposition composition : trackList) {
             tracks.append(composition.getName()).append(" ").append(composition.getAuthor()).append("\n");

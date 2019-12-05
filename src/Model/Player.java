@@ -26,7 +26,7 @@ public class Player {
 
     public List<MusicalComposition> findInDiapason(float min, float max){
         List<MusicalComposition> foundByDuration = new ArrayList<>();
-        for(MusicalComposition composition: disk.getDisk()){
+        for(MusicalComposition composition: disk.getTrackList()){
             if(composition.getDuration()>min && composition.getDuration()<max)
                  foundByDuration.add(composition);
         }
