@@ -1,5 +1,10 @@
-package com.company.Model;
+package com.company.model.entity;
 
+import com.company.model.Style;
+import lombok.*;
+
+@Getter
+@Setter
 public abstract class MusicalComposition {
 
     protected String name, author;
@@ -16,27 +21,4 @@ public abstract class MusicalComposition {
         if (duration < 0) throw new IllegalArgumentException("The duration must be more than 0");
         this.duration = duration;
     }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-
-    public Style getStyle() {
-        return style;
-    }
-
-
-    public float getDuration() {
-        return duration;
-    }
-
 }

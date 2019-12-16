@@ -1,4 +1,4 @@
-package com.company.Model;
+package com.company.model;
 
 import org.junit.Assert;
 import org.junit.Before;

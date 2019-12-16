@@ -1,4 +1,4 @@
-package com.company.Model;
+package com.company.model.entity;
 
 public class MusicalCompositionWithWords extends MusicalComposition {
     String language;

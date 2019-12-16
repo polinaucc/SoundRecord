@@ -1,4 +1,6 @@
-package com.company.Model;
+package com.company.model;
+
+import com.company.model.entity.MusicalComposition;
 
 import java.util.Comparator;
 

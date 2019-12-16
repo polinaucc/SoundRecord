@@ -1,7 +1,7 @@
-package com.company.View;
+package com.company.view;
 
-import com.company.Model.Disk;
-import com.company.Model.MusicalComposition;
+import com.company.model.Disk;
+import com.company.model.entity.MusicalComposition;
 
 import java.util.List;
 import java.util.Locale;
@@ -30,6 +30,7 @@ public class View{
     public void printMessage(String message, String name) {
         System.out.println(bundle.getString(message) + " " + name);
     }
+
     public void printMessageWithLoc(String message, String name) {
         System.out.println(bundle.getString(message) + " " + bundle.getString(name));
     }

@@ -1,7 +1,8 @@
-package com.company.Controller;
+package com.company.controller;
 
-import com.company.Model.*;
-import com.company.View.*;
+import com.company.model.*;
+import com.company.model.entity.MusicalComposition;
+import com.company.view.*;
 
 import java.util.Scanner;
 
