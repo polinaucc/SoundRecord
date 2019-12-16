@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Getter
 @Setter
@@ -21,8 +22,14 @@ public class PlayerImpl implements Player {
     }
 
     @Override
-    public void changeDisk(DiskImpl disk) {
-        setDisk(disk);
+    public void inputDisk(DiskImpl disk) {
+        if (!isEnteredDisk()) setDisk(disk);
+    }
+
+    @Override
+    public void outputDisk() {
+        if (disk!=null) disk=null;
+        else throw new NoSuchElementException("There are no disk in player");
     }
 
     @Override

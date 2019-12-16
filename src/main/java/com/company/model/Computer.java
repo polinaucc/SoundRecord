@@ -55,20 +55,16 @@ public class Computer {
         return compositions;
     }
 
-    public boolean isExist(MusicalComposition composition) {
-        for (MusicalComposition mc : this.getCompositions()) {
-            if (mc.getName().equals(composition)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     public void recordCompositionOnDisk(String... composition) {
         for (MusicalComposition mc : this.getCompositions()) {
-            if (isExist(mc)) currentDisk.addComposition(mc);
+            for (String mc2 : composition) {
+                if (mc.getName().equals(mc2)) {
+                    currentDisk.addComposition(mc);
+                }
+            }
         }
     }
 }
+
 
 

@@ -16,35 +16,46 @@ public class Controller {
         this.computer = computer;
     }
 
-    public void process() {
-        Scanner scanner = new Scanner(System.in);
-        this.view.printMessage(TextConstants.INVITATION);
-        String diskName = inputDiskWithSacnner(scanner);
-        computer.setCurrentDisk(diskName);
-        this.view.printMessage(TextConstants.INVITATION_FOR_RECORD, String.valueOf(computer.getCurrentDisk().getAmountOfTracks()));
-        while (true) {
+    void recordSong(Scanner scanner){
             String[] songNames = inputSongWithSacnner(scanner);
             try {
                 computer.recordCompositionOnDisk(songNames);
                 this.view.printMessage(TextConstants.SUCCESSFUL_RECORD);
-                break;
             } catch (IllegalArgumentException exc) {
                 this.view.printMessage(TextConstants.NOT_SUCCESSFUL_RECORD);
             }
-        }
+    }
+
+    public void playDisk(){
         view.printMessage(TextConstants.PLAY_DISK);
-        computer.getPlayer().setDisk(computer.getCurrentDisk());
-        view.printList(computer.getCurrentDisk().toString());
+        computer.getPlayer().inputDisk(computer.getCurrentDisk());
+        view.printList(computer.getPlayer().play());
         view.printMessage(TextConstants.PLAYER_FUNCTIONS);
+    }
+
+    public void changeDisk(Scanner scanner){
+        this.view.printMessage(TextConstants.INVITATION);
+        String diskName = inputDiskWithSacnner(scanner);
+        computer.setCurrentDisk(diskName);
+        this.view.printMessage(TextConstants.INVITATION_FOR_RECORD, String.valueOf(computer.getCurrentDisk().getAmountOfTracks()));
+
+
+    }
+
+    public void process() {
+        Scanner scanner = new Scanner(System.in);
+        changeDisk(scanner);
+        recordSong(scanner);
+        playDisk();
         while(true){
         int status = inputStatusWithScanner(scanner);
         switch (status) {
             case 1:
-                view.printList(computer.getPlayer().getDisk().toString());
+                view.printList(computer.getPlayer().play());
                 break;
             case 2: {
                 computer.getPlayer().sort();
-                view.printList(computer.getPlayer().getDisk().toString());
+                view.printList(computer.getPlayer().play());
                 break;
             }
             case 3: {
@@ -57,10 +68,17 @@ public class Controller {
                 view.printCompositionNames(computer.getPlayer().findInDiapason(min, max));
                 break;
             }
-            case 4:
+            case 4: {
+                computer.getPlayer().outputDisk();
+                changeDisk(scanner);
+                recordSong(scanner);
+                playDisk();
+                break;
+            }
+            case 5:
                 break;
         }
-        if(status==4) break;
+        if(status==5) break;
         }
 
     }
@@ -129,7 +147,7 @@ public class Controller {
                 view.printMessage(TextConstants.WRONG_DATA);
                 scanner.next();
             }
-            if ((status = scanner.nextInt()) < 0 || status > 4) {
+            if ((status = scanner.nextInt()) < 0 || status > 5) {
                 view.printMessage(TextConstants.WRONG_DATA);
                 continue;
             }
