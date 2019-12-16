@@ -1,4 +1,4 @@
-package com.company.model;
+package com.company.model.entity;
 
 public enum Style {
     ROCK(1950, "Рок", "Найпопулярніший стиль 90-х"),

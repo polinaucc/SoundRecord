@@ -1,6 +1,7 @@
 package com.company.controller;
 
 import com.company.model.*;
+import com.company.model.entity.DiskImpl;
 import com.company.model.entity.MusicalComposition;
 import com.company.view.*;
 
@@ -8,23 +9,23 @@ import java.util.Scanner;
 
 public class Controller {
     private View view;
-    private Model model;
+    private Computer computer;
 
-    public Controller(View view, Model model) {
+    public Controller(View view, Computer computer) {
         this.view = view;
-        this.model = model;
+        this.computer = computer;
     }
 
     public void process() {
         Scanner scanner = new Scanner(System.in);
         this.view.printMessage(TextConstants.INVITATION);
         String diskName = inputDiskWithSacnner(scanner);
-        model.setCurrentDisk(diskName);
-        this.view.printMessage(TextConstants.INVITATION_FOR_RECORD, String.valueOf(model.getCurrentDisk().getAmountOfTracks()));
+        computer.setCurrentDisk(diskName);
+        this.view.printMessage(TextConstants.INVITATION_FOR_RECORD, String.valueOf(computer.getCurrentDisk().getAmountOfTracks()));
         while (true) {
             String[] songNames = inputSongWithSacnner(scanner);
             try {
-                model.recordCompositionOnDisk(songNames);
+                computer.recordCompositionOnDisk(songNames);
                 this.view.printMessage(TextConstants.SUCCESSFUL_RECORD);
                 break;
             } catch (IllegalArgumentException exc) {
@@ -32,18 +33,18 @@ public class Controller {
             }
         }
         view.printMessage(TextConstants.PLAY_DISK);
-        model.getPlayer().setDisk(model.getCurrentDisk());
-        view.printList(model.getCurrentDisk().toString());
+        computer.getPlayer().setDisk(computer.getCurrentDisk());
+        view.printList(computer.getCurrentDisk().toString());
         view.printMessage(TextConstants.PLAYER_FUNCTIONS);
         while(true){
         int status = inputStatusWithScanner(scanner);
         switch (status) {
             case 1:
-                view.printList(model.getPlayer().getDisk().toString());
+                view.printList(computer.getPlayer().getDisk().toString());
                 break;
             case 2: {
-                model.getPlayer().sortByStyle();
-                view.printList(model.getPlayer().getDisk().toString());
+                computer.getPlayer().sort();
+                view.printList(computer.getPlayer().getDisk().toString());
                 break;
             }
             case 3: {
@@ -53,7 +54,7 @@ public class Controller {
                     min = inputDiapasonWithScanner(scanner);
                     max = inputDiapasonWithScanner(scanner);
                 }
-                view.printCompositionNames(model.getPlayer().findInDiapason(min, max));
+                view.printCompositionNames(computer.getPlayer().findInDiapason(min, max));
                 break;
             }
             case 4:
@@ -65,13 +66,13 @@ public class Controller {
     }
 
     public boolean isExist(String name) {
-        for (MusicalComposition mc : model.getCompositions()) {
+        for (MusicalComposition mc : computer.getCompositions()) {
             if (mc.getName().equals(name)) {
                 return true;
             }
         }
 
-        for (Disk d : model.getDisks()) {
+        for (DiskImpl d : computer.getDisks()) {
             if (d.getName().equals(name)) {
                 return true;
             }
@@ -84,7 +85,7 @@ public class Controller {
         String res = "";
         while (true) {
             view.printMessageWithLoc(TextConstants.ENTER, TextConstants.DISK);
-            view.printDiskNames(model.getDisks());
+            view.printDiskNames(computer.getDisks());
             res = scanner.next();
             if (!isExist(res)) {
                 this.view.printMessage(TextConstants.INCORRECT_INPUT, res);
@@ -101,7 +102,7 @@ public class Controller {
         while (true) {
             view.printMessageWithLoc(TextConstants.ENTER, TextConstants.SONG);
             view.printMessage(TextConstants.SONG_LIST);
-            view.printCompositionNames(model.getCompositions());
+            view.printCompositionNames(computer.getCompositions());
             res = scanner.next();
             System.out.println(res);
             songs = res.split(",");

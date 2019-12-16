@@ -1,6 +1,6 @@
 package com.company.view;
 
-import com.company.model.Disk;
+import com.company.model.entity.DiskImpl;
 import com.company.model.entity.MusicalComposition;
 
 import java.util.List;
@@ -13,8 +13,8 @@ public class View{
             //getBundle(FILENAME, new Locale("en"));
             getBundle(FILENAME, new Locale("ua"));
 
-    public void printDiskNames(List<Disk> disks){
-        for(Disk d : disks) {
+    public void printDiskNames(List<DiskImpl> disks){
+        for(DiskImpl d : disks) {
             System.out.print(d.getName() + " ");
         }
         System.out.println();

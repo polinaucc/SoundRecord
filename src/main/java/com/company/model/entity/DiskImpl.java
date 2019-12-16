@@ -1,24 +1,30 @@
-package com.company.model;
+package com.company.model.entity;
 
-import com.company.model.entity.MusicalComposition;
+import com.company.model.SortByStyle;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.NoSuchElementException;
 
-public class Disk {
+@Setter
+@Getter
+public class DiskImpl implements Disk {
     private List<MusicalComposition> trackList;
     private String name;
     private float duration;
     private int amountOfTracks, freePlaceForTrack;
 
-    public Disk(String name, int amountOfTracks) {
+    public DiskImpl(String name, int amountOfTracks) {
         this.amountOfTracks = amountOfTracks;
         this.freePlaceForTrack = amountOfTracks;
         this.name = name;
         this.trackList = new ArrayList<>();
     }
 
+    @Override
     public void addComposition(MusicalComposition composition) {
         if (freePlaceForTrack!=0) {
             trackList.add(composition);
@@ -28,20 +34,23 @@ public class Disk {
         }
     }
 
-    public String getName() {
-        return name;
+    private int findIndexByName(String name){
+        for(MusicalComposition mc: trackList){
+            if (mc.getName().equals(name))
+                return trackList.indexOf(mc);
+        }
+        throw new NoSuchElementException("There are no song with such name");
     }
 
-    public List<MusicalComposition> getTrackList() {
-        return trackList;
+    @Override
+    public void removeComposition(String name) {
+        trackList.remove(findIndexByName(name));
+
     }
 
+    @Override
     public void sort(SortByStyle comparator) {
         Collections.sort(trackList, comparator);
-    }
-
-    public int getAmountOfTracks() {
-        return amountOfTracks;
     }
 
     @Override

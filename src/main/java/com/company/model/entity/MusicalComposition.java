@@ -1,6 +1,5 @@
 package com.company.model.entity;
 
-import com.company.model.Style;
 import lombok.*;
 
 @Getter
